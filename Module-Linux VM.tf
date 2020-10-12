@@ -13,7 +13,7 @@ variable "Key_Name" {
 module "Demo_VM_AZ1" {
   count = var.Create_Demo_VMs ? 1 : 0
 
-  source          = "./Linux Machine"
+  source          = "./Linux VM"
   Project_Prefix  = aws_subnet.az1.tags.Name
   Hostname_Suffix = "-demovm"
   # Access and Licenses
@@ -25,7 +25,7 @@ module "Demo_VM_AZ1" {
 module "Demo_VM_AZ2" {
   count = var.Create_Demo_VMs ? 1 : 0
 
-  source          = "./Linux Machine"
+  source          = "./Linux VM"
   Project_Prefix  = aws_subnet.az2.tags.Name
   Hostname_Suffix = "-demovm"
   # Access and Licenses

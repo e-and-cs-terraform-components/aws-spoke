@@ -2,8 +2,8 @@
 # Local processing
 data "null_data_source" "subnets" {
   inputs = {
-    Subnet_CIDR_AZ1 = var.Subnet_CIDR_AZ1 != "" ? var.Subnet_CIDR_AZ1 : cidrsubnet(var.VPC_CIDR, 1, 0)
-    Subnet_CIDR_AZ2 = var.Subnet_CIDR_AZ2 != "" ? var.Subnet_CIDR_AZ2 : cidrsubnet(var.VPC_CIDR, 1, 1)
+    Subnet_CIDR_AZ1 = var.Subnet_CIDR_AZ1 != null && var.Subnet_CIDR_AZ1 != "" ? var.Subnet_CIDR_AZ1 : cidrsubnet(var.VPC_CIDR, 1, 0)
+    Subnet_CIDR_AZ2 = var.Subnet_CIDR_AZ2 != null && var.Subnet_CIDR_AZ2 != "" ? var.Subnet_CIDR_AZ2 : cidrsubnet(var.VPC_CIDR, 1, 1)
   }
 }
 
@@ -20,7 +20,7 @@ variable "Subnet_CIDR_AZ1" {
   default     = ""
   description = "The CIDR for the AZ1 subnet in the VPC. Leave blank to automatically subdivide into 1/2th of the VPC CIDR"
   validation {
-    condition     = can(regex("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\/(1[7-9]|2[0-8])|)$", var.Subnet_CIDR_AZ1))
+    condition     = var.Subnet_CIDR_AZ1 == null || var.Subnet_CIDR_AZ1 == "" || can(regex("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\/(1[7-9]|2[0-8]))$", var.Subnet_CIDR_AZ1))
     error_message = "Must be a valid IPv4 CIDR with a CIDR Mask between 17 and 28 bits (/17-/28)."
   }
 }
@@ -29,7 +29,7 @@ variable "Subnet_CIDR_AZ2" {
   default     = ""
   description = "The CIDR for the AZ2 subnet in the VPC. Leave blank to automatically subdivide into 1/2th of the VPC CIDR"
   validation {
-    condition     = can(regex("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\/(1[7-9]|2[0-8])|)$", var.Subnet_CIDR_AZ2))
+    condition     = var.Subnet_CIDR_AZ2 == null || var.Subnet_CIDR_AZ2 == "" || can(regex("^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[0-9][0-9]|[0-9])\\/(1[7-9]|2[0-8]))$", var.Subnet_CIDR_AZ2))
     error_message = "Must be a valid IPv4 CIDR with a CIDR Mask between 17 and 28 bits (/17-/28)."
   }
 }

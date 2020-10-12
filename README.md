@@ -50,6 +50,11 @@ enabled.
   * `Transit_Gateway_Hub_To_Gateway_Attachment_ID`: The ID of the attachment from the Hub VPC to
   the Transit Gateway.
   * `Hub_Inspect_Routing_Table_ID`: The ID of the Routing Table to update with this spoke's CIDR.
+* Defined in `Module-Linux VM.tf`
+  * `Create_Demo_VMs`: Whether this spoke should create a demo endpoint virtual machine in each AZ.
+  Default: `false`.
+  * `Key_Name`: The per-region SSH key to use. Left blank, it will prevent SSH Key Authentication.
+  Default: `null`.
 
 ## Outputs
 
